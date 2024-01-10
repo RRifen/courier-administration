@@ -30,6 +30,7 @@ export function AuthPage() {
                 alert(error.response.data.message);
                 throw new Error();
             });
+            alert("Вы успешно зарегистрировались, можно произвести авторизацию");
             console.log("Вы успешно зарегистрировались");
         } catch (e) {
         }

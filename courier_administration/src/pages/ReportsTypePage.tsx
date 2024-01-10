@@ -1,21 +1,21 @@
-import {useEquipments} from "../hooks/EquipmentsHook";
+import {useEquipmentTypes} from "../hooks/EquipmentTypesHook";
 import {Navigation} from "../components/nav/Navigation";
 import {ModalWindow} from "../components/modal/ModalWindow";
-import {UpdateEquipment} from "../CUD/updates/UpdateEquipments";
+import {UpdateEquipmentType} from "../CUD/updates/UpdateEquipmentType";
 import {Col, Container, Row} from "react-bootstrap";
-import {SearchEquipments} from "../CUD/search/SearchEquipments";
-import {InsertEquipments} from "../CUD/insert/InsertEquipments";
+import {SearchEquipmentTypes} from "../CUD/search/SearchEquipmentType";
+import {InsertEquipmentTypes} from "../CUD/insert/InsertEquipmentType";
 import {DataTable} from "../components/table/DataTable";
 import {DataPagesCountSelector} from "../components/table/DataPagesCountSelector";
 import {PaginationUnderTable} from "../components/table/PaginationUnderTable";
 import React from "react";
-import {useGoods} from "../hooks/GoodsHook";
-import {SearchGoods} from "../CUD/search/SearchGoods";
-import {InsertGoods} from "../CUD/insert/InsertGoods";
-import {UpdateGoods} from "../CUD/updates/UpdateGoods";
+import {useReportTypes} from "../hooks/ReportsTypeHook";
+import {UpdateReportType} from "../CUD/updates/UpdateReportType";
+import {InsertReportTypes} from "../CUD/insert/InsertReportType";
+import {SearchReportTypes} from "../CUD/search/SearchReportType";
 
-export function GoodsPage() {
-    const {generatePropsForDBAccess} = useGoods();
+export function ReportsTypePage() {
+    const {generatePropsForDBAccess} = useReportTypes();
 
     let props = generatePropsForDBAccess();
     return (
@@ -23,22 +23,22 @@ export function GoodsPage() {
             <Navigation/>
             <ModalWindow handleClose={props.handleCloseErrorDelete} show={props.showErrorDelete}
                          modalBody={"Данную запись не получится удалить"} modalTitle={"Error"}/>
-            <UpdateGoods obj={props.updateObj} setObj={props.setUpdateObj} updateHandler={props.updateHandler}
-                             show={props.showUpdateModal}
-                             handleClose={props.handleCloseUpdateModal}/>
+            <UpdateReportType obj={props.updateObj} setObj={props.setUpdateObj} updateHandler={props.updateHandler}
+                                 show={props.showUpdateModal}
+                                 handleClose={props.handleCloseUpdateModal}/>
             <Container className="standard mt-3 rounded">
                 <Row className="pt-3">
                     <div>
-                        <h2 style={{textAlign: "center"}}>Товары</h2>
-                        </div>
+                        <h2 style={{textAlign: "center"}}>Типы отчетов</h2>
+                    </div>
                 </Row>
                 <Row>
                     <Col className="col-6">
                         <Container className="pt-3">
                             <Row>
                                 <Col>
-                                    <SearchGoods searchHandler={props.searchHandler}
-                                                      setPage={props.setPage}/>
+                                    <SearchReportTypes searchHandler={props.searchHandler}
+                                                            setPage={props.setPage}/>
                                 </Col>
                             </Row>
                         </Container>
@@ -46,7 +46,7 @@ export function GoodsPage() {
                     <Col className="col-6">
                         <Container className="pt-3">
                             <Row>
-                                <InsertGoods insertHandler={props.insertHandler}/>
+                                <InsertReportTypes insertHandler={props.insertHandler}/>
                             </Row>
                         </Container>
                     </Col>

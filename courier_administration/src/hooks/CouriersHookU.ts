@@ -111,12 +111,12 @@ export function useCouriersU() {
             readHandler();
         }
         else {
-            await fetchCouriers( "SELECT courier_id, surname, name, patronymic, latitude, longitude, phone, violation_counter FROM couriers WHERE " + expArray.join(" AND "));
+            await fetchCouriers( "SELECT courier_id, surname, name, patronymic, get_beautiful_name(courier_id), phone, violation_counter FROM couriers WHERE " + expArray.join(" AND "));
         }
     }
 
     async function readHandler() {
-        await fetchCouriers("SELECT courier_id, surname, name, patronymic, latitude, longitude, phone, violation_counter FROM couriers");
+        await fetchCouriers("SELECT courier_id, surname, name, patronymic, get_beautiful_name(courier_id), phone, violation_counter FROM couriers");
     }
 
     async function fetchCouriers(query: string) {

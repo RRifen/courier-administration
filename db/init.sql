@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `delivery_administration` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `delivery_administration`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: delivery_administration
@@ -14,9 +16,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-CREATE DATABASE delivery_administration;
-USE delivery_administration;
 
 --
 -- Table structure for table `admins`
@@ -131,7 +130,7 @@ CREATE TABLE `equipments` (
 
 LOCK TABLES `equipments` WRITE;
 /*!40000 ALTER TABLE `equipments` DISABLE KEYS */;
-INSERT INTO `equipments` VALUES (3,2,1),(4,3,2),(5,3,1),(6,4,1),(7,4,2),(8,3,1),(10,2,2),(12,3,2),(17,4,2),(18,4,2),(19,4,2),(20,2,1),(23,3,4),(24,1,2),(25,1,2);
+INSERT INTO `equipments` VALUES (3,2,1),(8,3,1),(10,2,2),(12,3,2),(17,4,2),(18,4,2),(19,4,2),(20,2,1),(23,3,4),(24,1,2),(25,1,2);
 /*!40000 ALTER TABLE `equipments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,6 +244,25 @@ LOCK TABLES `orders` WRITE;
 INSERT INTO `orders` VALUES (2,2,'Moscow, Studencheskaya 22','2023-12-10 23:17:01',2);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `fix_timestamp` BEFORE UPDATE ON `orders` FOR EACH ROW BEGIN
+	IF new.estimated_delivery_time < current_timestamp() THEN
+		SET new.estimated_delivery_time = DATE_ADD(NOW(), INTERVAL 2 HOUR);
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `providers`
@@ -271,7 +289,7 @@ CREATE TABLE `providers` (
 
 LOCK TABLES `providers` WRITE;
 /*!40000 ALTER TABLE `providers` DISABLE KEYS */;
-INSERT INTO `providers` VALUES (1,'provider_1','provider1',1),(3,'provider_3','provider3',3),(4,'provider_4','provider4',5),(5,'provider_5','provider5',5),(6,'provider_6','provider6',5),(7,'provider_7','provider7',9),(8,'provider_8','provider8',6),(9,'provider_19','provider9',5),(10,'provider_10','provider10',3),(11,'provider_11','provider11',8);
+INSERT INTO `providers` VALUES (1,'provider_1','provider1',1),(4,'provider_4','provider4',5),(5,'provider_5','provider5',5),(6,'provider_6','provider6',5),(7,'provider_7','provider7',9),(8,'provider_8','provider8',6),(9,'provider_19','provider9',5),(10,'provider_10','provider10',3),(11,'provider_11','provider11',8);
 /*!40000 ALTER TABLE `providers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -327,9 +345,54 @@ CREATE TABLE `reports` (
 
 LOCK TABLES `reports` WRITE;
 /*!40000 ALTER TABLE `reports` DISABLE KEYS */;
-INSERT INTO `reports` VALUES (1,2,1,'2023-12-04 03:14:00','Where is Money?'),(2,3,1,'2023-08-29 14:37:00','What a stupid mistake'),(6,174692,2,'2023-12-04 13:40:09','asfasdgsfgsdfsdfsdfsdf');
+INSERT INTO `reports` VALUES (1,2,1,'2023-12-04 03:14:00','Where is Money?'),(6,174692,2,'2023-12-04 13:40:09','asfasdgsfgsdfsdfsdfsdf');
 /*!40000 ALTER TABLE `reports` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'delivery_administration'
+--
+/*!50003 DROP FUNCTION IF EXISTS `get_beautiful_name` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `get_beautiful_name`(id int) RETURNS varchar(60) CHARSET utf8mb4
+    READS SQL DATA
+BEGIN
+	SELECT surname, name, patronymic INTO @surname, @name, @patronymic FROM couriers WHERE courier_id = id;
+    SELECT CONCAT(@surname, ' ', LEFT(@name, 1), '.', LEFT(@patronymic, 1), '.') INTO @result;
+RETURN @result;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `add_violation` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_violation`(IN id int)
+BEGIN
+	UPDATE couriers SET violation_counter = violation_counter + 1 WHERE courier_id = id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -340,4 +403,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-11  0:36:32
+-- Dump completed on 2024-01-10 21:12:45

@@ -27,10 +27,9 @@ export function ReportsPage() {
                              show={props.showUpdateModal}
                              handleClose={props.handleCloseUpdateModal}/>
             <Container className="standard mt-3 rounded">
-                <Row>
+                <Row className="pt-3">
                     <div>
-                        <h2 style={{textAlign: "center"}}>Some text</h2>
-                        <p></p>
+                        <h2 style={{textAlign: "center"}}>Отчеты</h2>
                     </div>
                 </Row>
                 <Row>

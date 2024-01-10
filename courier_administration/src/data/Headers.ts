@@ -9,8 +9,7 @@ export const couriersHeaders: Array<string> = [
     "Фамилия",
     "Имя",
     "Отчество",
-    "Широта",
-    "Долгота",
+    "ФИО",
     "Телефон",
     "Нарушения"
 ]
@@ -29,6 +28,11 @@ export const goodsHeaders: Array<string> = [
     "Id провайдера",
     "Id типа товара",
     "Тип товара"
+]
+
+export const equipmentTypesHeaders: Array<string> = [
+    "Id",
+    "Описание"
 ]
 
 export const issuePointsHeaders: Array<string> = [
@@ -59,4 +63,14 @@ export const reportsHeaders: Array<string> = [
     "Тип отчета",
     "Дата отчета",
     "Текст отчета"
+]
+
+export const reportTypesHeaders: Array<string> = [
+    "Id",
+    "Описание"
+]
+
+export const goodTypesHeaders: Array<string> = [
+    "Id",
+    "Описание"
 ]

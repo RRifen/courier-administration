@@ -40,9 +40,9 @@ export function Navigation() {
                         Отчеты
                     </NavLink>
                     <NavDropdown title="Типы" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.2">Типы товаров</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Типы отчетов</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Типы оборудования</NavDropdown.Item>
+                        <NavDropdown.Item href="/good-types">Типы товаров</NavDropdown.Item>
+                        <NavDropdown.Item href="/report-types">Типы отчетов</NavDropdown.Item>
+                        <NavDropdown.Item href="/equipment-types">Типы оборудования</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </NavbarCollapse>

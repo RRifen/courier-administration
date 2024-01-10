@@ -13,6 +13,9 @@ import {AuthPage} from "./pages/AuthPage";
 import {CouriersPageU} from "./pages/CouriersPageU";
 import {ProvidersPageU} from "./pages/ProvidersPageU";
 import {ReportsPageU} from "./pages/ReportsPageU";
+import {EquipmentsTypePage} from "./pages/EquipmentsTypePage";
+import {ReportsTypePage} from "./pages/ReportsTypePage";
+import {GoodsTypePage} from "./pages/GoodsTypePage";
 
 function App() {
     return (
@@ -25,6 +28,9 @@ function App() {
                 <Route path="/issue-points" element={<ProtectedRoute role="ROLE_ADMIN"><IssuePointsPage/></ProtectedRoute>}/>
                 <Route path="/orders" element={<ProtectedRoute role="ROLE_ADMIN"><OrdersPage/></ProtectedRoute>}/>
                 <Route path="/couriers" element={<ProtectedRoute role="ROLE_ADMIN"><CouriersPage/></ProtectedRoute>}/>
+                <Route path="/equipment-types" element={<ProtectedRoute role="ROLE_ADMIN"><EquipmentsTypePage/></ProtectedRoute>}/>
+                <Route path="/report-types" element={<ProtectedRoute role="ROLE_ADMIN"><ReportsTypePage/></ProtectedRoute>}/>
+                <Route path="/good-types" element={<ProtectedRoute role="ROLE_ADMIN"><GoodsTypePage/></ProtectedRoute>}/>
                 <Route path="/equipments" element={<ProtectedRoute role="ROLE_ADMIN"><EquipmentsPage/></ProtectedRoute>}/>
                 <Route path="/couriers-u" element={<ProtectedRoute role="ROLE_USER"><CouriersPageU/></ProtectedRoute>}/>
                 <Route path="/providers-u" element={<ProtectedRoute role="ROLE_USER"><ProvidersPageU/></ProtectedRoute>}/>
