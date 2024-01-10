@@ -54,4 +54,12 @@ git clone https://github.com/RRifen/courier-administration.git
 cd society
 docker-compose up
 ```
-
+Если сервис "java" не запустился, то необходимо вручную запустить контейнер с ним - через графический интерфейс или следующей командой:
+``` shell
+docker start courier-administration-java-1
+```
+По умолчанию создан один привилегированнй пользователь:
+```
+Логин: main
+Пароль: main
+```
